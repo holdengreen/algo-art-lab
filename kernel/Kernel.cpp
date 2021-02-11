@@ -24,12 +24,15 @@ void Kernel::render()
     uint8_t* data =  new uint8_t[datalen];
 
     int i=0;
-    for (int x=0;x<WIDTH;x++) {
-        for (int y=0;y<HEIGHT;y++) {
+    for (int y=0;y<HEIGHT;y++) {
+        for (int x=0;x<WIDTH;x++) {
             vec2 pos;
-            pos.x = float(x) / float(WIDTH);
-            pos.y = float(y) / float(HEIGHT);
-            //printf("Location: %p\n", frag);
+            float xf = x;
+            float yf = y;
+            float hx = (WIDTH-1)/2.0;
+            float hy = (HEIGHT-1)/2.0;
+            pos.x = -((xf - hx) / hx);
+            pos.y = ((yf - hy) / hy);
             frag->pos = pos;
             auto vc = (*frag)();
             Color c;
